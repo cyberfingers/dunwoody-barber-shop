@@ -1,0 +1,23 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dunwoody-barber-shop",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-05-15",
+  "no_bundle": true,
+  "assets": {
+    "directory": "dist/client"
+  },
+  "routes": [
+    {
+      "pattern": "dunwoodybarbershop.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.dunwoodybarbershop.com",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

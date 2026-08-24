@@ -15,7 +15,7 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dunwoody-barber-shop.pthesulcatatortoise.chatgpt.site"),
+  metadataBase: new URL("https://dunwoodybarbershop.com"),
   title: {
     default: "Barber Shop in Dunwoody, GA | Dunwoody Barber Shop",
     template: "%s | Dunwoody Barber Shop",
