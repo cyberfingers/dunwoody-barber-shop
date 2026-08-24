@@ -15,12 +15,16 @@ const sans = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://dunwoody-barber-shop.pthesulcatatortoise.chatgpt.site"),
   title: {
-    default: "Dunwoody Barber Shop | Classic Haircuts in Dunwoody, GA",
+    default: "Barber Shop in Dunwoody, GA | Dunwoody Barber Shop",
     template: "%s | Dunwoody Barber Shop",
   },
   description:
-    "Visit Dunwoody Barber Shop for classic haircuts, careful scissor and clipper work, and friendly neighborhood service from master barber Kevin Lam.",
+    "Visit Dunwoody Barber Shop for haircuts, razor cuts, facial shaves, beard trims, and shampoo. Walk-ins welcome at 5064 Nandina Lane.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "barber shop Dunwoody GA",
     "men's haircut Dunwoody",
@@ -38,15 +42,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
+    url: "/",
     siteName: "Dunwoody Barber Shop",
-    title: "Dunwoody Barber Shop | A Proper Haircut, Done With Care",
+    title: "Barber Shop in Dunwoody, GA | Dunwoody Barber Shop",
     description:
-      "Classic barbering and friendly neighborhood service from master barber Kevin Lam in Dunwoody, Georgia.",
+      "Haircuts, razor cuts, facial shaves, beard trims, and shampoo from master barber Kevin Lam in Dunwoody, Georgia.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dunwoody Barber Shop",
-    description: "Classic haircuts and careful barbering in Dunwoody, Georgia.",
+    title: "Barber Shop in Dunwoody, GA | Dunwoody Barber Shop",
+    description:
+      "Haircuts, razor cuts, facial shaves, beard trims, and shampoo from master barber Kevin Lam in Dunwoody, Georgia.",
   },
 };
 
