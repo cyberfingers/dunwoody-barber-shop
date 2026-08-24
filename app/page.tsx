@@ -3,7 +3,6 @@ const business = {
   owner: "Kevin Lam",
   phoneDisplay: "(770) 396-8500",
   phoneHref: "+17703968500",
-  email: "kevinlam59@yahoo.com",
   street: "5064 Nandina Lane",
   locality: "Dunwoody, GA 30338",
 };
@@ -61,7 +60,6 @@ const schema = {
   description:
     "A neighborhood barbershop in Dunwoody, Georgia offering traditional haircuts, scissor and clipper work, and grooming services.",
   telephone: business.phoneHref,
-  email: business.email,
   address: {
     "@type": "PostalAddress",
     streetAddress: business.street,
@@ -285,16 +283,14 @@ export default function Home() {
           <p>{business.street}, {business.locality}</p>
           <p>
             <a href={`tel:${business.phoneHref}`}>{business.phoneDisplay}</a>
-            <span aria-hidden="true"> · </span>
-            <a href={`mailto:${business.email}`}>{business.email}</a>
           </p>
         </div>
         <p className="copyright">© {new Date().getFullYear()} {business.name}</p>
         <p className="accessibility-note">
           <strong>Accessibility assistance:</strong> If you have difficulty using any
-          part of this website, call <a href={`tel:${business.phoneHref}`}>{business.phoneDisplay}</a>
-          {" "}or email <a href={`mailto:${business.email}`}>{business.email}</a>. {business.name}
-          {" "}will be happy to help and welcomes reports of accessibility barriers.
+          part of this website, call <a href={`tel:${business.phoneHref}`}>{business.phoneDisplay}</a>.
+          {" "}{business.name} will be happy to help and welcomes reports of accessibility
+          barriers.
         </p>
       </footer>
 
