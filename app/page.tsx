@@ -11,18 +11,33 @@ const business = {
 const services = [
   {
     number: "01",
-    title: "Classic Haircuts",
-    copy: "Clean, balanced cuts shaped to your hair, routine, and preferred style.",
+    title: "Regular Haircut",
+    price: 30,
   },
   {
     number: "02",
-    title: "Scissor & Clipper Work",
-    copy: "Traditional barbering with careful blending, detailing, and a tidy finish.",
+    title: "Boys Haircut",
+    price: 30,
   },
   {
     number: "03",
-    title: "Beard & Neck Cleanup",
-    copy: "Crisp edges and polished grooming to complete your look.",
+    title: "Razor Cut",
+    price: 35,
+  },
+  {
+    number: "04",
+    title: "Facial Shave",
+    price: 35,
+  },
+  {
+    number: "05",
+    title: "Beard Trim",
+    price: 15,
+  },
+  {
+    number: "06",
+    title: "Shampoo",
+    price: 10,
   },
 ];
 
@@ -78,6 +93,19 @@ const schema = {
     "@type": "Person",
     name: business.owner,
     jobTitle: "Master Barber and Owner",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Barber Services",
+    itemListElement: services.map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service.title,
+      },
+      price: service.price,
+      priceCurrency: "USD",
+    })),
   },
   priceRange: "$$",
 };
@@ -178,15 +206,17 @@ export default function Home() {
         <div className="services-grid">
           {services.map((service) => (
             <article className="service-card" key={service.number}>
-              <span>{service.number}</span>
+              <div className="service-meta">
+                <span>{service.number}</span>
+                <strong>${service.price}</strong>
+              </div>
               <h3>{service.title}</h3>
-              <p>{service.copy}</p>
             </article>
           ))}
         </div>
         <p className="service-note">
-          Looking for a specific cut or grooming service? Call the shop and Kevin will be
-          happy to help.
+          Questions about a cut or grooming service? Call the shop and Kevin will be happy
+          to help.
         </p>
       </section>
 
