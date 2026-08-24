@@ -118,12 +118,7 @@ export default function Home() {
       </a>
 
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Dunwoody Barber Shop home">
-          <span className="brand-mark" aria-hidden="true">
-            DBS
-          </span>
-          <span>{business.name}</span>
-        </a>
+        <a className="brand" href="#top">{business.name}</a>
         <nav aria-label="Primary navigation">
           <a href="#top">Top</a>
           <a href="#services">Services</a>
@@ -155,7 +150,7 @@ export default function Home() {
       </nav>
 
       <div id="top" className="hero">
-        <div className="hero-copy" id="content">
+        <div className="hero-copy" id="content" tabIndex={-1}>
           <p className="eyebrow">Dunwoody Barber Shop</p>
           <h1>Your neighborhood barber in Dunwoody.</h1>
           <p className="hero-tagline">
@@ -285,10 +280,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <a className="brand footer-brand" href="#top">
-          <span className="brand-mark" aria-hidden="true">DBS</span>
-          <span>{business.name}</span>
-        </a>
+        <a className="brand footer-brand" href="#top">{business.name}</a>
         <div>
           <p>{business.street}, {business.locality}</p>
           <p>
@@ -298,6 +290,12 @@ export default function Home() {
           </p>
         </div>
         <p className="copyright">© {new Date().getFullYear()} {business.name}</p>
+        <p className="accessibility-note">
+          <strong>Accessibility assistance:</strong> If you have difficulty using any
+          part of this website, call <a href={`tel:${business.phoneHref}`}>{business.phoneDisplay}</a>
+          {" "}or email <a href={`mailto:${business.email}`}>{business.email}</a>. {business.name}
+          {" "}will be happy to help and welcomes reports of accessibility barriers.
+        </p>
       </footer>
 
       <script

@@ -49,24 +49,12 @@ a { color: inherit; }
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: .75rem;
   color: inherit;
   font-size: .84rem;
   font-weight: 700;
   letter-spacing: .08em;
   text-decoration: none;
   text-transform: uppercase;
-}
-.brand-mark {
-  display: grid;
-  width: 2.75rem;
-  aspect-ratio: 1;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,.55);
-  border-radius: 50%;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: .8rem;
-  letter-spacing: .12em;
 }
 nav { display: flex; align-items: center; gap: clamp(1rem, 2.5vw, 2.5rem); }
 nav a { font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
@@ -81,6 +69,7 @@ nav a:not(.nav-call):hover { color: #f1dba9; }
   background: var(--ink);
 }
 .hero-copy {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -137,6 +126,7 @@ h1 em { color: var(--cream); font-weight: 500; }
 .walk-in { margin: 2rem 0 0; color: rgba(255,255,255,.5); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; }
 .hero-art {
   position: relative;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -214,7 +204,11 @@ footer p { margin: 0; }
 footer a { text-decoration: none; }
 footer a:hover { color: white; }
 .copyright { text-align: right; }
-:focus-visible { outline: 3px solid #f4cf77; outline-offset: 4px; }
+.accessibility-note { grid-column: 1 / -1; max-width: 920px; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.14); }
+.accessibility-note strong { color: white; }
+.accessibility-note a { color: white; text-decoration: underline; text-underline-offset: .18em; }
+:focus-visible { outline: 3px solid white; outline-offset: 2px; box-shadow: 0 0 0 5px var(--ink); }
+.hero-copy:focus-visible { outline: 0; box-shadow: none; }
 #top, #services, #about, #visit { scroll-margin-top: 5.5rem; }
 
 @media (max-width: 900px) {
@@ -236,7 +230,7 @@ footer a:hover { color: white; }
 @media (max-width: 600px) {
   body { padding-bottom: calc(4.35rem + env(safe-area-inset-bottom)); }
   .site-header { position: absolute; padding: 1rem 1.25rem; border-bottom: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
-  .brand > span:last-child { max-width: 145px; line-height: 1.25; }
+  .site-header .brand { max-width: 180px; line-height: 1.25; }
   .nav-call { font-size: .75rem; }
   .mobile-jump-nav {
     position: fixed;
@@ -280,7 +274,7 @@ footer a:hover { color: white; }
   .mobile-jump-nav .mobile-call { background: var(--red); }
   #top, #services, #about, #visit { scroll-margin-top: 1rem; }
   .hero-copy { min-height: 690px; padding-top: 8rem; }
-  h1 { font-size: clamp(3.2rem, 14vw, 4.8rem); line-height: .88; }
+  h1 { font-size: clamp(2.75rem, 14vw, 4.8rem); line-height: .88; }
   .hero-tagline { font-size: clamp(2rem, 9.5vw, 2.7rem); line-height: 1; }
   .hero-actions { align-items: flex-start; flex-direction: column; }
   .hero-art { min-height: 480px; }
