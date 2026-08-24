@@ -29,6 +29,17 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.hostname === "www.dunwoodybarbershop.com") {
+      url.protocol = "https:";
+      url.hostname = "dunwoodybarbershop.com";
+      return Response.redirect(url.toString(), 301);
+    }
+
+    if (url.hostname === "dunwoodybarbershop.com" && url.protocol === "http:") {
+      url.protocol = "https:";
+      return Response.redirect(url.toString(), 301);
+    }
+
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
@@ -40,7 +51,16 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const response = await handler.fetch(request, env, ctx);
+
+    if (url.hostname === "dunwoodybarbershop.com" && url.protocol === "https:") {
+      const securedResponse = new Response(response.body, response);
+      securedResponse.headers.set("Strict-Transport-Security", "max-age=31536000");
+      securedResponse.headers.set("X-Content-Type-Options", "nosniff");
+      return securedResponse;
+    }
+
+    return response;
   },
 };
 

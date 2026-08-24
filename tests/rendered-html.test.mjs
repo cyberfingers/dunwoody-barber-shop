@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-async function render() {
+async function render(path = "/", origin = "http://localhost") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`${origin}${path}`, {
       headers: { accept: "text/html" },
     }),
     {
@@ -50,4 +50,37 @@ test("keeps contact details private and includes accessibility landmarks", async
   assert.match(html, /aria-label="Primary navigation"/i);
   assert.match(html, /application\/ld\+json/i);
   assert.match(html, /Accessibility assistance:/i);
+});
+
+test("publishes crawlable robots and sitemap metadata", async () => {
+  const [robotsResponse, sitemapResponse] = await Promise.all([
+    render("/robots.txt"),
+    render("/sitemap.xml"),
+  ]);
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(robotsResponse.headers.get("content-type") ?? "", /^text\/plain\b/i);
+  assert.match(await robotsResponse.text(), /Sitemap: https:\/\/dunwoodybarbershop\.com\/sitemap\.xml/i);
+
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(sitemapResponse.headers.get("content-type") ?? "", /xml/i);
+  assert.match(await sitemapResponse.text(), /<loc>https:\/\/dunwoodybarbershop\.com<\/loc>/i);
+});
+
+test("enforces the canonical HTTPS hostname and sends HSTS", async () => {
+  const [httpResponse, wwwResponse, httpsResponse] = await Promise.all([
+    render("/services?from=http", "http://dunwoodybarbershop.com"),
+    render("/visit", "https://www.dunwoodybarbershop.com"),
+    render("/", "https://dunwoodybarbershop.com"),
+  ]);
+
+  assert.equal(httpResponse.status, 301);
+  assert.equal(
+    httpResponse.headers.get("location"),
+    "https://dunwoodybarbershop.com/services?from=http",
+  );
+  assert.equal(wwwResponse.status, 301);
+  assert.equal(wwwResponse.headers.get("location"), "https://dunwoodybarbershop.com/visit");
+  assert.equal(httpsResponse.headers.get("strict-transport-security"), "max-age=31536000");
+  assert.equal(httpsResponse.headers.get("x-content-type-options"), "nosniff");
 });
