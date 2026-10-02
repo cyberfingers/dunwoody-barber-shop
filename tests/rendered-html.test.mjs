@@ -84,3 +84,21 @@ test("enforces the canonical HTTPS hostname and sends HSTS", async () => {
   assert.equal(httpsResponse.headers.get("strict-transport-security"), "max-age=31536000");
   assert.equal(httpsResponse.headers.get("x-content-type-options"), "nosniff");
 });
+test("repeated sitemap requests do not invent a content modification date", async () => {
+  const firstResponse = await render("/sitemap.xml");
+  const firstXml = await firstResponse.text();
+
+  await new Promise((resolve) => setTimeout(resolve, 25));
+
+  const secondResponse = await render("/sitemap.xml");
+  const secondXml = await secondResponse.text();
+
+  assert.equal(firstResponse.status, 200);
+  assert.equal(secondResponse.status, 200);
+  assert.match(firstResponse.headers.get("content-type") ?? "", /xml/i);
+  assert.match(secondResponse.headers.get("content-type") ?? "", /xml/i);
+  assert.match(firstXml, /<loc>https:\/\/dunwoodybarbershop\.com<\/loc>/i);
+  assert.doesNotMatch(firstXml, /<lastmod\b/i);
+  assert.doesNotMatch(secondXml, /<lastmod\b/i);
+  assert.equal(secondXml, firstXml);
+});
