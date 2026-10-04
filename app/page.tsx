@@ -216,7 +216,9 @@ export default function Home() {
       <section className="about-section" id="about">
         <figure className="about-photo">
           <img
-            src="/kevin-lam-dunwoody-barber-shop.webp"
+            src="/kevin-lam-dunwoody-barber-shop-800.webp"
+            srcSet="/kevin-lam-dunwoody-barber-shop-400.webp 400w, /kevin-lam-dunwoody-barber-shop-640.webp 640w, /kevin-lam-dunwoody-barber-shop-800.webp 800w, /kevin-lam-dunwoody-barber-shop-1200.webp 1200w, /kevin-lam-dunwoody-barber-shop.webp 1600w"
+            sizes="(max-width: 342px) calc(100vw - 48px), (max-width: 883px) 86vw, (max-width: 900px) 760px, (max-width: 1828px) 44.24vw, calc(56vw - 215.04px)"
             alt="Kevin Lam, master barber and owner, inside Dunwoody Barber Shop"
             width="1600"
             height="1200"
